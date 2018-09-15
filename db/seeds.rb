@@ -55,4 +55,6 @@ def seed_posts
   end
 end
 
-seed_users
+#seed_users
+seed_categories
+seed_posts
