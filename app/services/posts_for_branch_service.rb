@@ -1,6 +1,6 @@
 class PostsForBranchService
   def initialize(params)
-    @search = params[:seacrh]
+    @search = params[:search]
     @category = params[:category]
     @branch = params[:branch]
   end
@@ -18,4 +18,5 @@ class PostsForBranchService
     else
     end
   end
+
 end

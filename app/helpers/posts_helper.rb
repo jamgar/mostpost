@@ -16,8 +16,8 @@ module PostsHelper
     end
   end
 
-  def no_posts_partial_path
-    @posts.empty? ? 'posts/branch/no_posts' : 'shared/empty_partial'
+  def no_posts_partial_path(posts)
+    posts.empty? ? 'posts/shared/no_posts' : 'shared/empty_partial'
   end
 
   def post_format_partial_path
@@ -38,10 +38,6 @@ module PostsHelper
     else
       'posts/posts_pagination_page/remove_pagination'
     end
-  end
-
-  def no_posts_partial_path(posts)
-    posts.empty? ? 'posts/shared/no_posts' : 'shared/empty_partial'
   end
 
   def contact_user_partial_path

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     get 'signup', to: 'devise/registrations#new'
   end
 
+  root to: 'pages#index'
+
   resources :posts do
     collection do
       get 'hobby'
@@ -26,5 +28,4 @@ Rails.application.routes.draw do
     resources :messages, only: [:index, :create]
   end
 
-  root to: 'pages#index'
 end

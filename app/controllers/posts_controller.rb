@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   end
 
   def hobby
-    posts_for_branch(params[:actions])
+    posts_for_branch(params[:action])
   end
 
   def study
@@ -55,7 +55,7 @@ class PostsController < ApplicationController
     PostsForBranchService.new({
       search: params[:search],
       category: params[:category],
-      branch: params[:branch]
+      branch: params[:action]
     }).call
   end
 
