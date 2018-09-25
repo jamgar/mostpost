@@ -5,7 +5,6 @@ $(document).on('turbolinks:load ajax:complete', function() {
     $(document).ajaxComplete(function() {
         isLoading = false;
       // hide loading icon
-      console.log('Current Loading Icon: ', currentLoadingIcon);
       if (currentLoadingIcon !== undefined) {
         console.log('Hiding Icon....');
             currentLoadingIcon.hide();
