@@ -13,10 +13,7 @@ App.private_conversation = App.cable.subscriptions.create("Private::Conversation
     // set variables
     var conversation = findConv(data['conversation_id'], 'p');
     var conversation_rendered = ConvRendered(data['conversation_id'], 'p');
-    var messages_visible = ConvMessagesVisiblity(conversation);
-    console.log('conversation: ', conversation);
-    console.log('conversation_rendered: ', conversation_rendered);
-    console.log('messages_visible: ', messages_visible);
+    var messages_visible = ConvMessagesVisibility(conversation);
 
     if (data['recipient'] == true) {
         // mark conversation as unseen, after new message is received
@@ -46,6 +43,9 @@ App.private_conversation = App.cable.subscriptions.create("Private::Conversation
       return this.perform('send_message', {
           message: message
       });
+  },
+  set_as_seen: function(conv_id) {
+      return this.perform('set_as_seen', { conv_id: conv_id });
   }
 });
 
@@ -54,4 +54,26 @@ $(document).on('submit', '.send-private-message', function(e) {
     var values = $(this).serializeArray();
     App.private_conversation.send_message(values);
     $(this).trigger('reset');
+});
+
+$(document).on('click', '.conversation-window, .private-conversation', function(e) {
+    // if the last message in a conversation is not a user's message and is unseen
+    // mark unseen messages as seen
+    var latest_message = $('.messages-list ul li:last .row div', this);
+    if (latest_message.hasClass('message-received') && latest_message.hasClass('unseen')) {
+        var conv_id = $(this).find('.panel').attr('data-pconversation-id');
+        // if conv_id doesn't exist, it means that conversation is opened in messenger
+        if (conv_id == null) {
+            var conv_id = $(this).finde('.message-list').attr('data-pconversation-id');
+        }
+        // mark conversation as seen in conversations menu list
+        latest_message.removeClass('unseen');
+        $('#menu-pc' + conv_id).removeClass('unseen-conv');
+        calculateUnseenConversations();
+        App.private_conversation.set_as_seen(conv_id);
+    }
+});
+
+$(document).on('turbolinks;load', function() {
+    calculateUnseenConversations();
 });
