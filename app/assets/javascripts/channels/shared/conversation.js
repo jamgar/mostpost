@@ -39,7 +39,9 @@ function ConvMessagesVisibility(conversation) {
     } else {
         // conversation is opened in a popup window
         // check if the window is collapsed or expanded
-        var visibility = conversation.find('.panel-body').is(':visible');
+        var visibility = conversation
+                                .find('.panel-body')
+                                .is(':visible');
         return visibility;
     }
 }
