@@ -9,6 +9,9 @@ class User < ApplicationRecord
   has_many  :private_conversations,
             foreign_key: :sender_id,
             class_name: 'Private::Conversation'
+  
+  has_many :group_messages, class_name: 'Group::Message'
+  has_and_belongs_to_many :group_conversations, class_name: 'Group::Conversation'
 
   has_many :contacts
   has_many :all_received_contact_requests,  
