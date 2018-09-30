@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   end
 
   root to: 'pages#index'
+  get 'messenger', to: 'messengers#index'
+  get 'get_private_conversation', to: 'messengers#get_private_conversation'
+  get 'get_group_conversation', to: 'messengers#get_group_conversation'
+  get 'open_messenger', to: 'messengers#open_messenger'
 
   resources :posts do
     collection do
